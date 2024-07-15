@@ -1,0 +1,27 @@
+service: hello-gpt-serverless
+
+provider:
+  name: aws
+  runtime: python3.10
+  memorySize: 1024
+  region: ap-northeast-1
+  stage: ${opt:stage, self:custom.defaultStage}
+  architecture: x86_64
+  ecr:
+    images:
+      sentence_feedback_in_bulk_gpt:
+        platform: linux/amd64
+        path: ./
+
+custom:
+  defaultStage: dev
+  openaiApiKey: ${ssm:/OPENAI_API_KEY/SRE}
+
+functions:
+  SentenceFeedbackInBulkGpt:
+    name: hello-gpt-serverless-${self:provider.stage}
+    timeout: 900
+    image:
+      name: sentence_feedback_in_bulk_gpt
+    environment:
+      OPENAI_API_KEY: ${self:custom.openaiApiKey}
