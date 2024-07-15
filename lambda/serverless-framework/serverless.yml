@@ -15,7 +15,7 @@ provider:
 
 custom:
   defaultStage: dev
-  openaiApiKey: ${ssm:/OPENAI_API_KEY/SRE}
+  openaiApiKey: ${ssm:/OPENAI_API_KEY/DEV}
 
 functions:
   SentenceFeedbackInBulkGpt:
