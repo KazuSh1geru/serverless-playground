@@ -1,10 +1,16 @@
-# More information about the configuration file can be found here:
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+# samconfig.toml とは ?
+# SAM CLI が使用する設定ファイルで、デプロイ時のパラメータを指定することができる
 version = 0.1
 
 [default]
 [default.global.parameters]
-stack_name = "hello-sam"
+stack_name = "hello-sam"  # CloudFormation の スタック名
+profile = "admin-role"  # デプロイに使用する AWS プロファイルを指定
+region = "ap-northeast-1"
+config_file = "samconfig.toml"
+config_env = "dev"  # 使用する設定ファイル内のデフォルトパラメータを指定
+debug = true  # デバッグモードを有効にする
 
 [default.build.parameters]
 parallel = true
@@ -14,12 +20,11 @@ lint = true
 
 [default.deploy.parameters]
 capabilities = "CAPABILITY_IAM"
-confirm_changeset = true
-resolve_s3 = true
-resolve_image_repos = true
+confirm_changeset = true  # デプロイ前に変更セットを確認する
+disable_rollback = false  # デプロイ中にエラーが発生した場合にロールバックを無効にするフラグ
+resolve_s3 = true  # S3 バケットの名前を解決する
+# resolve_image_repos = true  # ECR リポジトリの名前を解決する → 名前を指定するようにするのでコメントアウト
 s3_prefix = "hello-sam"
-region = "ap-northeast-1"
-profile = "admin-role"
 
 [default.package.parameters]
 resolve_s3 = true
@@ -32,3 +37,11 @@ warm_containers = "EAGER"
 
 [default.local_start_lambda.parameters]
 warm_containers = "EAGER"
+
+[dev.deploy.parameters]
+config_env = "dev"
+image_repository = "hello-sam-dev"
+
+[prod.deploy.parameters]
+config_env = "prod"
+image_repository = "hello-sam-prod"
