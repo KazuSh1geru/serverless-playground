@@ -1,3 +1,6 @@
+# AWS SAM
+.aws-sam/
+
 # npm関連ライブラリ
 node_modules/
 package-lock.json
