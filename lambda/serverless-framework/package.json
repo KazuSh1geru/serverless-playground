@@ -1,0 +1,13 @@
+{
+  "name": "hello-gpt",
+  "devDependencies": {
+    "serverless": "^3.31.0",
+    "serverless-better-credentials": "^2.0.0"
+  },
+  "scripts": {
+    "deploy-dev": "npx sls deploy --stage dev --verbose --aws-profile admin-role",
+    "deploy-prod": "npx sls deploy --stage prod --verbose",
+    "remove-dev": "npx sls remove --stage dev --verbose",
+    "remove-prod": "npx sls remove --stage prod --verbose"
+  }
+}
