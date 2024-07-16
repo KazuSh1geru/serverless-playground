@@ -39,12 +39,18 @@ Build Failed
 Error: Building image for HelloWorldFunction requires Docker. is Docker running?
 ```
 
-解決策: シンボリックリンクを作成して、DOCKER_HOSTを指定する.
-
-
+解決策: .zshrcに環境変数を作成して、DOCKER_HOSTを指定する.
 ```bash
-sudo ln -s "$HOME/.docker/run/docker.sock" /var/run/docker.sock
+docker context ls
+
+NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
+rancher-desktop *   Rancher Desktop moby context              unix:///Users/xxx-xxx/.rd/docker.sock 
 ```
+
+```bash: .zshrc
+export DOCKER_HOST=unix:///Users/xxx-xxx/.rd/docker.sock
+```
+
 
 [参考サイト](https://dev.classmethod.jp/articles/aws-sam-cli-resolve-docker-error/)
 
